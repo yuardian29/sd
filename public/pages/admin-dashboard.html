@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin TU - Sistem Informasi Sekolah</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="sidebar-title" id="adminName">Admin</div>
+                <div class="sidebar-subtitle" id="adminPosition">Tata Usaha</div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <!-- Dashboard Section -->
+                <div class="menu-section">
+                    <div class="menu-section-title">Menu Utama</div>
+                    <a href="#" class="menu-item active" onclick="loadPage('dashboard')">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <a href="#" class="menu-item" onclick="loadPage('profile')">
+                        <i class="fas fa-user"></i> Profil Saya
+                    </a>
+                </div>
+
+                <!-- Management Section -->
+                <div class="menu-section">
+                    <div class="menu-section-title">Manajemen Data</div>
+                    <a href="#" class="menu-item" onclick="loadPage('students')">
+                        <i class="fas fa-users"></i> Kelola Siswa
+                    </a>
+                    <a href="#" class="menu-item" onclick="loadPage('teachers')">
+                        <i class="fas fa-chalkboard-user"></i> Kelola Guru
+                    </a>
+                    <a href="#" class="menu-item" onclick="loadPage('classes')">
+                        <i class="fas fa-building"></i> Kelola Kelas
+                    </a>
+                    <a href="#" class="menu-item" onclick="loadPage('subjects')">
+                        <i class="fas fa-book"></i> Kelola Mata Pelajaran
+                    </a>
+                </div>
+
+                <!-- Academic Section -->
+                <div class="menu-section">
+                    <div class="menu-section-title">Akademik</div>
+                    <a href="#" class="menu-item" onclick="loadPage('schedule')">
+                        <i class="fas fa-calendar-alt"></i> Jadwal Pelajaran
+                    </a>
+                    <a href="#" class="menu-item" onclick="loadPage('attendance')">
+                        <i class="fas fa-check-circle"></i> Laporan Kehadiran
+                    </a>
+                    <a href="#" class="menu-item" onclick="loadPage('grades')">
+                        <i class="fas fa-chart-line"></i> Laporan Nilai
+                    </a>
+                </div>
+
+                <!-- System Section -->
+                <div class="menu-section">
+                    <div class="menu-section-title">Sistem</div>
+                    <a href="#" class="menu-item" onclick="loadPage('users')">
+                        <i class="fas fa-user-cog"></i> Kelola User
+                    </a>
+                    <a href="#" class="menu-item" onclick="loadPage('settings')">
+                        <i class="fas fa-cog"></i> Pengaturan Sistem
+                    </a>
+                    <a href="#" class="menu-item" onclick="loadPage('logs')">
+                        <i class="fas fa-history"></i> Log Aktivitas
+                    </a>
+                </div>
+
+                <!-- Other Section -->
+                <div class="menu-section">
+                    <div class="menu-section-title">Lainnya</div>
+                    <a href="#" class="menu-item" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="page-title" id="pageTitle">Dashboard</div>
+                <div class="user-menu">
+                    <button class="btn-icon" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">8</span>
+                    </button>
+                    <button class="btn-icon" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="user-profile" onclick="toggleUserDropdown()">
+                        <div class="avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <span id="topbarName">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <div id="mainContent"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Default Dashboard Template -->
+    <template id="dashboard-template">
+        <div class="grid grid-4">
+            <div class="card stat-card">
+                <div class="stat-icon success">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">450</div>
+                    <div class="stat-label">Total Siswa</div>
+                </div>
+            </div>
+
+            <div class="card stat-card">
+                <div class="stat-icon info">
+                    <i class="fas fa-chalkboard-user"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">42</div>
+                    <div class="stat-label">Total Guru</div>
+                </div>
+            </div>
+
+            <div class="card stat-card">
+                <div class="stat-icon warning">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">15</div>
+                    <div class="stat-label">Total Kelas</div>
+                </div>
+            </div>
+
+            <div class="card stat-card">
+                <div class="stat-icon danger">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Laporan Masalah</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Statistik Kehadiran</h3>
+                </div>
+                <div class="card-body">
+                    <div class="stat-item">
+                        <span>Hadir:</span> <strong>420 siswa (93%)</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span>Izin:</span> <strong>15 siswa (3%)</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span>Sakit:</span> <strong>10 siswa (2%)</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span>Tanpa Keterangan:</span> <strong>5 siswa (1%)</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Aktivitas Terbaru</h3>
+                </div>
+                <div class="card-body">
+                    <div class="activity-item">
+                        <div class="activity-time">1 jam lalu</div>
+                        <div class="activity-text">Nilai UAS XII IPA 1 telah diinput oleh Drs. Ahmad Priyono</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-time">3 jam lalu</div>
+                        <div class="activity-text">Absensi harian siswa telah disimpan</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-time">1 hari lalu</div>
+                        <div class="activity-text">Siswa baru Rini Wijaya telah didaftarkan</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Ringkasan Kelas</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Kelas</th>
+                                <th>Siswa</th>
+                                <th>Guru Wali</th>
+                                <th>Rata-rata Nilai</th>
+                                <th>Kehadiran</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>XII IPA 1</td>
+                                <td>35</td>
+                                <td>Drs. Budi Santoso</td>
+                                <td>8.2</td>
+                                <td>94%</td>
+                            </tr>
+                            <tr>
+                                <td>XII IPA 2</td>
+                                <td>36</td>
+                                <td>Ibu Sri Rahayu</td>
+                                <td>8.1</td>
+                                <td>93%</td>
+                            </tr>
+                            <tr>
+                                <td>XII IPS 1</td>
+                                <td>34</td>
+                                <td>Drs. Ahmad Wijaya</td>
+                                <td>7.9</td>
+                                <td>92%</td>
+                            </tr>
+                            <tr>
+                                <td>XII IPS 2</td>
+                                <td>33</td>
+                                <td>Ibu Eka Putri</td>
+                                <td>7.8</td>
+                                <td>91%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="../js/database.js"></script>
+    <script src="../js/database-helpers.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin-dashboard.js"></script>
+</body>
+</html>

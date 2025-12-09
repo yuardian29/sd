@@ -1,0 +1,32 @@
+{
+  "name": "school-management-system",
+  "version": "1.0.0",
+  "description": "Aplikasi web komprehensif untuk manajemen informasi sekolah dengan tiga role pengguna: Siswa, Guru, dan Admin Tata Usaha.",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'No build step'",
+    "install-app": "node install.js",
+    "start": "node server-neon.js",
+    "start-neon": "node server-neon.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "import-data": "node import-data-capella.js",
+    "delete-data": "node delete-data-capella.js",
+    "test-connection": "node test-capella-connection.js",
+    "test-neon": "node test-neon-connection.js",
+    "create-collections": "node create-collections.js",
+    "create-indexes": "node create-indexes.js",
+    "setup-neon": "psql 'postgresql://neondb_owner:npg_5sNpLWPb2oCv@ep-young-violet-a4hljt4l-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require' -f neon-schema.sql"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "couchbase": "^4.6.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "pg": "^8.11.0",
+    "vercel": "^49.1.2"
+  }
+}

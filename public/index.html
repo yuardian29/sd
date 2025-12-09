@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Informasi Sekolah - Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <!-- Background Animation -->
+        <div class="background-animation">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+
+        <div class="login-wrapper">
+            <!-- Header Logo -->
+            <div class="login-header">
+                <div class="school-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h1>Sistem Informasi Sekolah</h1>
+                <p>SMA Negeri 1 Kota</p>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="tab-container">
+                <button class="tab-btn active" data-tab="student-tab" onclick="switchTab('student')">
+                    <i class="fas fa-user-graduate"></i> Siswa
+                </button>
+                <button class="tab-btn" data-tab="teacher-tab" onclick="switchTab('teacher')">
+                    <i class="fas fa-chalkboard-user"></i> Guru
+                </button>
+                <button class="tab-btn" data-tab="admin-tab" onclick="switchTab('admin')">
+                    <i class="fas fa-lock"></i> Admin TU
+                </button>
+            </div>
+
+            <!-- Login Form Container -->
+            <div class="login-forms">
+                <!-- SISWA TAB -->
+                <div id="student-tab" class="tab-content active">
+                    <form class="login-form" onsubmit="loginStudent(event)">
+                        <h2>Login Siswa</h2>
+                        
+                        <div class="form-group">
+                            <label for="student-nisn">
+                                <i class="fas fa-id-card"></i> NISN
+                            </label>
+                            <input 
+                                type="text" 
+                                id="student-nisn" 
+                                placeholder="Masukkan NISN Anda" 
+                                required
+                                pattern="[0-9]{10}"
+                                title="NISN harus 10 digit"
+                            >
+                            <span class="form-hint">10 digit nomor induk siswa nasional</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="student-password">
+                                <i class="fas fa-lock"></i> Password
+                            </label>
+                            <div class="password-field">
+                                <input 
+                                    type="password" 
+                                    id="student-password" 
+                                    placeholder="Masukkan password" 
+                                    required
+                                >
+                                <button type="button" class="toggle-password" onclick="togglePassword('student-password')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <span class="form-hint">Minimum 6 karakter</span>
+                        </div>
+
+                        <div class="form-group checkbox">
+                            <label>
+                                <input type="checkbox" name="remember"> Ingat saya
+                            </label>
+                            <a href="#" class="forgot-password">Lupa password?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Masuk
+                        </button>
+
+                        <div class="form-footer">
+                            <p>Belum punya akun? <a href="#">Hubungi Admin</a></p>
+                        </div>
+
+                        <div class="demo-credentials">
+                            <p><strong>Demo Akun:</strong></p>
+                            <p>NISN: 0098765432 | Password: password123</p>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- GURU TAB -->
+                <div id="teacher-tab" class="tab-content">
+                    <form class="login-form" onsubmit="loginTeacher(event)">
+                        <h2>Login Guru</h2>
+                        
+                        <div class="form-group">
+                            <label for="teacher-nip">
+                                <i class="fas fa-id-card"></i> NIP/NUPTK
+                            </label>
+                            <input 
+                                type="text" 
+                                id="teacher-nip" 
+                                placeholder="Masukkan NIP atau NUPTK" 
+                                required
+                            >
+                            <span class="form-hint">Nomor Induk Pegawai atau NUPTK</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="teacher-password">
+                                <i class="fas fa-lock"></i> Password
+                            </label>
+                            <div class="password-field">
+                                <input 
+                                    type="password" 
+                                    id="teacher-password" 
+                                    placeholder="Masukkan password" 
+                                    required
+                                >
+                                <button type="button" class="toggle-password" onclick="togglePassword('teacher-password')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group checkbox">
+                            <label>
+                                <input type="checkbox" name="remember"> Ingat saya
+                            </label>
+                            <a href="#" class="forgot-password">Lupa password?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Masuk
+                        </button>
+
+                        <div class="form-footer">
+                            <p>Hubungi Admin TU untuk bantuan akun</p>
+                        </div>
+
+                        <div class="demo-credentials">
+                            <p><strong>Demo Akun:</strong></p>
+                            <p>NIP: 123456789 | Password: guru123</p>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- ADMIN TU TAB -->
+                <div id="admin-tab" class="tab-content">
+                    <form class="login-form" onsubmit="loginAdmin(event)">
+                        <h2>Login Admin TU</h2>
+                        
+                        <div class="form-group">
+                            <label for="admin-username">
+                                <i class="fas fa-user"></i> Username
+                            </label>
+                            <input 
+                                type="text" 
+                                id="admin-username" 
+                                placeholder="Masukkan username" 
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="admin-password">
+                                <i class="fas fa-lock"></i> Password
+                            </label>
+                            <div class="password-field">
+                                <input 
+                                    type="password" 
+                                    id="admin-password" 
+                                    placeholder="Masukkan password" 
+                                    required
+                                >
+                                <button type="button" class="toggle-password" onclick="togglePassword('admin-password')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group checkbox">
+                            <label>
+                                <input type="checkbox" name="remember"> Ingat saya
+                            </label>
+                            <a href="#" class="forgot-password">Lupa password?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-sign-in-alt"></i> Masuk
+                        </button>
+
+                        <div class="form-footer">
+                            <p>Hanya untuk Staff Tata Usaha</p>
+                        </div>
+
+                        <div class="demo-credentials">
+                            <p><strong>Demo Akun:</strong></p>
+                            <p>Username: admin | Password: admin123</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Alert Message -->
+            <div id="alertMessage" class="alert" style="display: none;"></div>
+        </div>
+
+        <!-- Footer -->
+        <div class="login-footer">
+            <p>&copy; 2024 Sistem Informasi Sekolah. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script src="js/database.js"></script>
+    <script src="js/api-connector.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Siswa - Sistem Informasi Sekolah</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="sidebar-title" id="studentName">Siswa</div>
+                <div class="sidebar-subtitle" id="studentClass">XII IPA 1</div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <!-- Dashboard Section -->
+                <div class="menu-section">
+                    <div class="menu-section-title">Menu Utama</div>
+                    <a href="#" class="menu-item active" onclick="loadPage('dashboard')">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <a href="#" class="menu-item" onclick="loadPage('profile')">
+                        <i class="fas fa-user"></i> Profil Saya
+                    </a>
+                </div>
+
+                <!-- Academic Section -->
+                <div class="menu-section">
+                    <div class="menu-section-title">Akademik</div>
+                    <a href="#" class="menu-item" onclick="loadPage('schedule')">
+                        <i class="fas fa-calendar-alt"></i> Jadwal Pelajaran
+                    </a>
+                    <a href="#" class="menu-item" onclick="loadPage('grades')">
+                        <i class="fas fa-chart-line"></i> Nilai
+                    </a>
+                    <a href="#" class="menu-item" onclick="loadPage('assignments')">
+                        <i class="fas fa-tasks"></i> Tugas
+                    </a>
+                    <a href="#" class="menu-item" onclick="loadPage('attendance')">
+                        <i class="fas fa-check-circle"></i> Kehadiran
+                    </a>
+                </div>
+
+                <!-- Communication Section -->
+                <div class="menu-section">
+                    <div class="menu-section-title">Komunikasi</div>
+                    <a href="#" class="menu-item" onclick="loadPage('announcements')">
+                        <i class="fas fa-bell"></i> Pengumuman
+                    </a>
+                    <a href="#" class="menu-item" onclick="loadPage('messages')">
+                        <i class="fas fa-envelope"></i> Pesan
+                    </a>
+                </div>
+
+                <!-- Other Section -->
+                <div class="menu-section">
+                    <div class="menu-section-title">Lainnya</div>
+                    <a href="#" class="menu-item" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="page-title" id="pageTitle">Dashboard</div>
+                <div class="user-menu">
+                    <button class="btn-icon" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="btn-icon" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="user-profile" onclick="toggleUserDropdown()">
+                        <div class="avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <span id="topbarName">Siswa</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <div id="mainContent"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Default Dashboard Content (will be replaced by loadPage) -->
+    <template id="dashboard-template">
+        <div class="grid grid-3">
+            <div class="card stat-card">
+                <div class="stat-icon success">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">95%</div>
+                    <div class="stat-label">Kehadiran</div>
+                </div>
+            </div>
+
+            <div class="card stat-card">
+                <div class="stat-icon info">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">8.5</div>
+                    <div class="stat-label">Rata-rata Nilai</div>
+                </div>
+            </div>
+
+            <div class="card stat-card">
+                <div class="stat-icon warning">
+                    <i class="fas fa-clipboard"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Tugas Pending</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Jadwal Hari Ini</h3>
+                </div>
+                <div class="card-body">
+                    <div class="schedule-item">
+                        <div class="schedule-time">08:00 - 09:00</div>
+                        <div class="schedule-detail">
+                            <div class="schedule-subject">Matematika</div>
+                            <div class="schedule-teacher">Drs. Ahmad Priyono</div>
+                        </div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">09:00 - 10:00</div>
+                        <div class="schedule-detail">
+                            <div class="schedule-subject">Bahasa Indonesia</div>
+                            <div class="schedule-teacher">Ibu Srika Dewi, S.Pd</div>
+                        </div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">10:15 - 11:15</div>
+                        <div class="schedule-detail">
+                            <div class="schedule-subject">Bahasa Inggris</div>
+                            <div class="schedule-teacher">Mr. John Smith</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Pengumuman Terbaru</h3>
+                </div>
+                <div class="card-body">
+                    <div class="announcement-item">
+                        <div class="announcement-date">2 jam lalu</div>
+                        <div class="announcement-text">Libur nasional akan diterapkan mulai tanggal 15 Desember</div>
+                    </div>
+                    <div class="announcement-item">
+                        <div class="announcement-date">5 jam lalu</div>
+                        <div class="announcement-text">Pengumpulan tugas Matematika ditunda hingga Jumat</div>
+                    </div>
+                    <div class="announcement-item">
+                        <div class="announcement-date">1 hari lalu</div>
+                        <div class="announcement-text">Pembagian rapor akan dilaksanakan minggu depan</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Tugas Terbaru</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mata Pelajaran</th>
+                                <th>Tugas</th>
+                                <th>Deadline</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Matematika</td>
+                                <td>Soal Integral hal 45-50</td>
+                                <td>15 Desember 2024</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>Bahasa Indonesia</td>
+                                <td>Analisis Cerpen Maupassant</td>
+                                <td>13 Desember 2024</td>
+                                <td><span class="badge badge-success">Dikumpulkan</span></td>
+                            </tr>
+                            <tr>
+                                <td>Bahasa Inggris</td>
+                                <td>Essay "My Dream Career"</td>
+                                <td>16 Desember 2024</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>Fisika</td>
+                                <td>Praktikum Gelombang</td>
+                                <td>12 Desember 2024</td>
+                                <td><span class="badge badge-success">Dikumpulkan</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="../js/database.js"></script>
+    <script src="../js/database-helpers.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/student-dashboard.js"></script>
+</body>
+</html>
