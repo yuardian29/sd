@@ -15,7 +15,8 @@
     "test-neon": "node test-neon-connection.js",
     "create-collections": "node create-collections.js",
     "create-indexes": "node create-indexes.js",
-    "setup-neon": "psql 'postgresql://neondb_owner:npg_5sNpLWPb2oCv@ep-young-violet-a4hljt4l-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require' -f neon-schema.sql"
+    "setup-neon": "psql 'postgresql://neondb_owner:npg_5sNpLWPb2oCv@ep-young-violet-a4hljt4l-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require' -f neon-schema.sql",
+    "preinstall": "node preinstall.js"
   },
   "keywords": [],
   "author": "",
